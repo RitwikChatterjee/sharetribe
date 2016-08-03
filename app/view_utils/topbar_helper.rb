@@ -49,8 +49,9 @@ module TopbarHelper
 
     links.concat(user_links)
 
-    location_search_available = true # TODO: fix
-    main_search = location_search_available ? MarketplaceService::API::Api.configurations.get(community_id: community.id).data[:main_search] : :keyword
+    main_search = FeatureFlagHelper.location_search_available ?
+      MarketplaceService::API::Api.configurations.get(community_id: community.id).data[:main_search] :
+      :keyword
 
     {
       logo: {
